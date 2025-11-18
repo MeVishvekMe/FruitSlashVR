@@ -291,6 +291,62 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""XR Left Controller Interaction"",
+            ""id"": ""47b50a8e-3fc1-43cb-a487-58019e5ef4c1"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""63064be3-7da8-40d1-ae5c-cfa06f620151"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0eb5ba8c-323b-4cee-8c7a-f98d90004473"",
+                    ""path"": ""<XRController>{LeftHand}/gripButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""XR Right Controller Interaction"",
+            ""id"": ""7b3ace94-cd58-4fd4-b218-d538cda419dc"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cf34fba-f5c6-4586-9ea5-590bbda87450"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""96db8202-92fc-4536-9d19-9b04c9e07fe4"",
+                    ""path"": ""<XRController>{RightHand}/gripButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -310,6 +366,12 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
         m_XRRightControllerTracking_Position = m_XRRightControllerTracking.FindAction("Position", throwIfNotFound: true);
         m_XRRightControllerTracking_Rotation = m_XRRightControllerTracking.FindAction("Rotation", throwIfNotFound: true);
         m_XRRightControllerTracking_TrackingState = m_XRRightControllerTracking.FindAction("TrackingState", throwIfNotFound: true);
+        // XR Left Controller Interaction
+        m_XRLeftControllerInteraction = asset.FindActionMap("XR Left Controller Interaction", throwIfNotFound: true);
+        m_XRLeftControllerInteraction_Select = m_XRLeftControllerInteraction.FindAction("Select", throwIfNotFound: true);
+        // XR Right Controller Interaction
+        m_XRRightControllerInteraction = asset.FindActionMap("XR Right Controller Interaction", throwIfNotFound: true);
+        m_XRRightControllerInteraction_Select = m_XRRightControllerInteraction.FindAction("Select", throwIfNotFound: true);
     }
 
     ~@VrInputActionAsset()
@@ -317,6 +379,8 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_XRHeadTracking.enabled, "This will cause a leak and performance issues, VrInputActionAsset.XRHeadTracking.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_XRLeftControllerTracking.enabled, "This will cause a leak and performance issues, VrInputActionAsset.XRLeftControllerTracking.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_XRRightControllerTracking.enabled, "This will cause a leak and performance issues, VrInputActionAsset.XRRightControllerTracking.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_XRLeftControllerInteraction.enabled, "This will cause a leak and performance issues, VrInputActionAsset.XRLeftControllerInteraction.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_XRRightControllerInteraction.enabled, "This will cause a leak and performance issues, VrInputActionAsset.XRRightControllerInteraction.Disable() has not been called.");
     }
 
     /// <summary>
@@ -742,6 +806,198 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="XRRightControllerTrackingActions" /> instance referencing this action map.
     /// </summary>
     public XRRightControllerTrackingActions @XRRightControllerTracking => new XRRightControllerTrackingActions(this);
+
+    // XR Left Controller Interaction
+    private readonly InputActionMap m_XRLeftControllerInteraction;
+    private List<IXRLeftControllerInteractionActions> m_XRLeftControllerInteractionActionsCallbackInterfaces = new List<IXRLeftControllerInteractionActions>();
+    private readonly InputAction m_XRLeftControllerInteraction_Select;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "XR Left Controller Interaction".
+    /// </summary>
+    public struct XRLeftControllerInteractionActions
+    {
+        private @VrInputActionAsset m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public XRLeftControllerInteractionActions(@VrInputActionAsset wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "XRLeftControllerInteraction/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_XRLeftControllerInteraction_Select;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_XRLeftControllerInteraction; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="XRLeftControllerInteractionActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(XRLeftControllerInteractionActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="XRLeftControllerInteractionActions" />
+        public void AddCallbacks(IXRLeftControllerInteractionActions instance)
+        {
+            if (instance == null || m_Wrapper.m_XRLeftControllerInteractionActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_XRLeftControllerInteractionActionsCallbackInterfaces.Add(instance);
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="XRLeftControllerInteractionActions" />
+        private void UnregisterCallbacks(IXRLeftControllerInteractionActions instance)
+        {
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="XRLeftControllerInteractionActions.UnregisterCallbacks(IXRLeftControllerInteractionActions)" />.
+        /// </summary>
+        /// <seealso cref="XRLeftControllerInteractionActions.UnregisterCallbacks(IXRLeftControllerInteractionActions)" />
+        public void RemoveCallbacks(IXRLeftControllerInteractionActions instance)
+        {
+            if (m_Wrapper.m_XRLeftControllerInteractionActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="XRLeftControllerInteractionActions.AddCallbacks(IXRLeftControllerInteractionActions)" />
+        /// <seealso cref="XRLeftControllerInteractionActions.RemoveCallbacks(IXRLeftControllerInteractionActions)" />
+        /// <seealso cref="XRLeftControllerInteractionActions.UnregisterCallbacks(IXRLeftControllerInteractionActions)" />
+        public void SetCallbacks(IXRLeftControllerInteractionActions instance)
+        {
+            foreach (var item in m_Wrapper.m_XRLeftControllerInteractionActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_XRLeftControllerInteractionActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="XRLeftControllerInteractionActions" /> instance referencing this action map.
+    /// </summary>
+    public XRLeftControllerInteractionActions @XRLeftControllerInteraction => new XRLeftControllerInteractionActions(this);
+
+    // XR Right Controller Interaction
+    private readonly InputActionMap m_XRRightControllerInteraction;
+    private List<IXRRightControllerInteractionActions> m_XRRightControllerInteractionActionsCallbackInterfaces = new List<IXRRightControllerInteractionActions>();
+    private readonly InputAction m_XRRightControllerInteraction_Select;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "XR Right Controller Interaction".
+    /// </summary>
+    public struct XRRightControllerInteractionActions
+    {
+        private @VrInputActionAsset m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public XRRightControllerInteractionActions(@VrInputActionAsset wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "XRRightControllerInteraction/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_XRRightControllerInteraction_Select;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_XRRightControllerInteraction; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="XRRightControllerInteractionActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(XRRightControllerInteractionActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="XRRightControllerInteractionActions" />
+        public void AddCallbacks(IXRRightControllerInteractionActions instance)
+        {
+            if (instance == null || m_Wrapper.m_XRRightControllerInteractionActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_XRRightControllerInteractionActionsCallbackInterfaces.Add(instance);
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="XRRightControllerInteractionActions" />
+        private void UnregisterCallbacks(IXRRightControllerInteractionActions instance)
+        {
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="XRRightControllerInteractionActions.UnregisterCallbacks(IXRRightControllerInteractionActions)" />.
+        /// </summary>
+        /// <seealso cref="XRRightControllerInteractionActions.UnregisterCallbacks(IXRRightControllerInteractionActions)" />
+        public void RemoveCallbacks(IXRRightControllerInteractionActions instance)
+        {
+            if (m_Wrapper.m_XRRightControllerInteractionActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="XRRightControllerInteractionActions.AddCallbacks(IXRRightControllerInteractionActions)" />
+        /// <seealso cref="XRRightControllerInteractionActions.RemoveCallbacks(IXRRightControllerInteractionActions)" />
+        /// <seealso cref="XRRightControllerInteractionActions.UnregisterCallbacks(IXRRightControllerInteractionActions)" />
+        public void SetCallbacks(IXRRightControllerInteractionActions instance)
+        {
+            foreach (var item in m_Wrapper.m_XRRightControllerInteractionActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_XRRightControllerInteractionActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="XRRightControllerInteractionActions" /> instance referencing this action map.
+    /// </summary>
+    public XRRightControllerInteractionActions @XRRightControllerInteraction => new XRRightControllerInteractionActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "XR Head Tracking" which allows adding and removing callbacks.
     /// </summary>
@@ -828,5 +1084,35 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackingState(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "XR Left Controller Interaction" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="XRLeftControllerInteractionActions.AddCallbacks(IXRLeftControllerInteractionActions)" />
+    /// <seealso cref="XRLeftControllerInteractionActions.RemoveCallbacks(IXRLeftControllerInteractionActions)" />
+    public interface IXRLeftControllerInteractionActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "XR Right Controller Interaction" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="XRRightControllerInteractionActions.AddCallbacks(IXRRightControllerInteractionActions)" />
+    /// <seealso cref="XRRightControllerInteractionActions.RemoveCallbacks(IXRRightControllerInteractionActions)" />
+    public interface IXRRightControllerInteractionActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect(InputAction.CallbackContext context);
     }
 }
