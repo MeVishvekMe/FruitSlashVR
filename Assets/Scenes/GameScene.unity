@@ -212,6 +212,51 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &72629383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 72629384}
+  - component: {fileID: 72629385}
+  m_Layer: 0
+  m_Name: VRSnapTurn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &72629384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72629383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1877914609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &72629385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72629383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bff0b9792ac4a940a1f4fd89d2c2c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xrOriginTransform: {fileID: 29994544}
 --- !u!1 &115263812
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftJoystickInput: {x: 0, y: 0}
+  rightJoystickInput: {x: 0, y: 0}
 --- !u!1 &558665415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 29994545}
-  cameraTransform: {fileID: 875803589}
+  _cameraTransform: {fileID: 0}
 --- !u!1 &1872759168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,6 +2034,7 @@ Transform:
   m_Children:
   - {fileID: 1266427505}
   - {fileID: 1828527461}
+  - {fileID: 72629384}
   m_Father: {fileID: 29994544}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2065789602
@@ -2142,6 +2189,18 @@ PrefabInstance:
     - target: {fileID: 2510032163842918593, guid: 36020d5e840609b46b908b82f3d2ce86, type: 3}
       propertyPath: m_Name
       value: Naginata
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265414283671999846, guid: 36020d5e840609b46b908b82f3d2ce86, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265414283671999846, guid: 36020d5e840609b46b908b82f3d2ce86, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265414283671999846, guid: 36020d5e840609b46b908b82f3d2ce86, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4265414283671999846, guid: 36020d5e840609b46b908b82f3d2ce86, type: 3}
       propertyPath: m_LocalPosition.x

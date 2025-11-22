@@ -4,12 +4,12 @@ using UnityEngine;
 public class MovementController : MonoBehaviour {
     // REFERENCES
     [SerializeField] private CharacterController _characterController;
-    [SerializeField] public Transform cameraTransform;
+    [SerializeField] private Transform _cameraTransform;
     
     // SETTINGS
-    private float moveSpeed = 2f;
-    private float gravity = -9.81f;
-    private float verticalVelocity;
+    private float _moveSpeed = 2f;
+    private float _gravity = -9.81f;
+    private float _verticalVelocity;
 
     private void Update() {
         HandleMovement();
@@ -18,25 +18,25 @@ public class MovementController : MonoBehaviour {
     private void HandleMovement() {
         Vector2 joystickInput = UserInputManager.Instance.leftJoystickInput;
 
-        Vector3 forward = cameraTransform.forward;
+        Vector3 forward = _cameraTransform.forward;
         forward.y = 0;
         forward.Normalize();
 
-        Vector3 right = cameraTransform.right;
+        Vector3 right = _cameraTransform.right;
         right.y = 0;
         right.Normalize();
 
         Vector3 moveDirection = (forward * joystickInput.y) + (right * joystickInput.x);
-        Vector3 horizontalMove = moveDirection * moveSpeed;
+        Vector3 horizontalMove = moveDirection * _moveSpeed;
 
         if (_characterController.isGrounded) {
-            verticalVelocity = -1f;
+            _verticalVelocity = -1f;
         }
         else {
-            verticalVelocity += gravity * Time.deltaTime;
+            _verticalVelocity += _gravity * Time.deltaTime;
         }
 
-        Vector3 verticalMove = Vector3.up * verticalVelocity;
+        Vector3 verticalMove = Vector3.up * _verticalVelocity;
 
         _characterController.Move((horizontalMove + verticalMove) * Time.deltaTime);
     }

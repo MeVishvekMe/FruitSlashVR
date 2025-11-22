@@ -7,6 +7,7 @@ public class UserInputManager : MonoBehaviour {
     private VrInputActionAsset _vrInputActionAsset;
 
     public Vector2 leftJoystickInput;
+    public Vector2 rightJoystickInput;
 
     private void Awake() {
         if (Instance == null) {
@@ -23,6 +24,7 @@ public class UserInputManager : MonoBehaviour {
         _vrInputActionAsset.Enable();
         
         _vrInputActionAsset.XRLeftControllerInteraction.Enable();
+        _vrInputActionAsset.XRRightControllerInteraction.Enable();
     }
 
     private void OnDisable() {
@@ -32,5 +34,6 @@ public class UserInputManager : MonoBehaviour {
 
     private void Update() {
         leftJoystickInput = _vrInputActionAsset.XRLeftControllerInteraction.Joystick.ReadValue<Vector2>();
+        rightJoystickInput = _vrInputActionAsset.XRRightControllerInteraction.Joystick.ReadValue<Vector2>();
     }
 }
