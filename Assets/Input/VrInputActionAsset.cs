@@ -304,6 +304,15 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Joystick"",
+                    ""type"": ""Value"",
+                    ""id"": ""c3bdc88d-e668-4093-84ae-b16ab82a3caa"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -315,6 +324,17 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""847f5ba7-0efe-470a-87ea-5fddcc65b087"",
+                    ""path"": ""<XRController>{LeftHand}/thumbstick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -369,6 +389,7 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
         // XR Left Controller Interaction
         m_XRLeftControllerInteraction = asset.FindActionMap("XR Left Controller Interaction", throwIfNotFound: true);
         m_XRLeftControllerInteraction_Select = m_XRLeftControllerInteraction.FindAction("Select", throwIfNotFound: true);
+        m_XRLeftControllerInteraction_Joystick = m_XRLeftControllerInteraction.FindAction("Joystick", throwIfNotFound: true);
         // XR Right Controller Interaction
         m_XRRightControllerInteraction = asset.FindActionMap("XR Right Controller Interaction", throwIfNotFound: true);
         m_XRRightControllerInteraction_Select = m_XRRightControllerInteraction.FindAction("Select", throwIfNotFound: true);
@@ -811,6 +832,7 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_XRLeftControllerInteraction;
     private List<IXRLeftControllerInteractionActions> m_XRLeftControllerInteractionActionsCallbackInterfaces = new List<IXRLeftControllerInteractionActions>();
     private readonly InputAction m_XRLeftControllerInteraction_Select;
+    private readonly InputAction m_XRLeftControllerInteraction_Joystick;
     /// <summary>
     /// Provides access to input actions defined in input action map "XR Left Controller Interaction".
     /// </summary>
@@ -826,6 +848,10 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "XRLeftControllerInteraction/Select".
         /// </summary>
         public InputAction @Select => m_Wrapper.m_XRLeftControllerInteraction_Select;
+        /// <summary>
+        /// Provides access to the underlying input action "XRLeftControllerInteraction/Joystick".
+        /// </summary>
+        public InputAction @Joystick => m_Wrapper.m_XRLeftControllerInteraction_Joystick;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -855,6 +881,9 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
+            @Joystick.started += instance.OnJoystick;
+            @Joystick.performed += instance.OnJoystick;
+            @Joystick.canceled += instance.OnJoystick;
         }
 
         /// <summary>
@@ -869,6 +898,9 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
             @Select.canceled -= instance.OnSelect;
+            @Joystick.started -= instance.OnJoystick;
+            @Joystick.performed -= instance.OnJoystick;
+            @Joystick.canceled -= instance.OnJoystick;
         }
 
         /// <summary>
@@ -1099,6 +1131,13 @@ public partial class @VrInputActionAsset: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Joystick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnJoystick(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "XR Right Controller Interaction" which allows adding and removing callbacks.
